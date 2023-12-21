@@ -10,6 +10,17 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <x-welcome /> --}}
                 @livewire('counter')
+
+
+                <form action="/post-test" method="POST">
+                    @csrf
+                    <input type="text" name="name" placeholder="Name">
+                    <input type="email" name="email" placeholder="Email">
+                    <button type="submit">Save</button>
+                </form>
+
+
+
             </div>
         </div>
     </div>
