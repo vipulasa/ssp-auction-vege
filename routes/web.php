@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (Request $request) {
-    return view('welcome');
+    return view('home');
 });
 
 Route::post('/post-test', function (Request $request) {
-    dd(request());
+    dd(request()->get('name'), request()->get('email'));
 });
 
 Route::get('hello', function () {
