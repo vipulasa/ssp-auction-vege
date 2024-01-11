@@ -13,7 +13,9 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.product_category.index', [
+            'product_categories' => ProductCategory::orderBy('id', 'DESC')->paginate(10)
+        ]);
     }
 
     /**
@@ -21,7 +23,9 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product_category.form', [
+
+        ]);
     }
 
     /**
@@ -29,7 +33,9 @@ class ProductCategoryController extends Controller
      */
     public function store(StoreProductCategoryRequest $request)
     {
-        //
+        (new ProductCategory())->create($request->all());
+
+        return redirect()->route('product-category.index');
     }
 
     /**
