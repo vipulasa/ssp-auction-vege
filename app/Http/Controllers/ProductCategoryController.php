@@ -67,6 +67,9 @@ class ProductCategoryController extends Controller
      */
     public function destroy(ProductCategory $productCategory)
     {
-        //
+        $productCategory->delete();
+
+        return redirect()->route('product-category.index');
+
     }
 }
