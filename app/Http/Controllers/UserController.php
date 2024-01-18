@@ -23,7 +23,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user.form', [
+            'user' => (new User()),
+            'roles' => Role::cases()
+        ]);
     }
 
     /**
@@ -31,7 +34,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'role' => 'required'
+        ]);
+
+        $validated['password'] = bcrypt('password');
+
+        User::create($validated);
+
+        return redirect()->route('user.index')->with('success', 'User successfully created!');
     }
 
     /**

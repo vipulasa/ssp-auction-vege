@@ -12,10 +12,18 @@
                     </p>
                 </div>
 
-                <form method="post" action="{{ route('user.update', $user->id) }}" class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                <form method="post"
+                    @if($user->id)
+                    action="{{ route('user.update', $user->id) }}"
+                    @else
+                    action="{{ route('user.store') }}"
+                    @endif
+                    class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
 
                     @csrf
-                    @method('PUT')
+                    @if ($user->id)
+                        @method('PUT')
+                    @endif
 
                     <div class="px-4 py-6 sm:p-8">
                         <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -64,10 +72,11 @@
                                     Role
                                 </label>
                                 <div class="mt-2">
-                                    <select id="role" name="role" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    <select id="role" name="role"
+                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->value }}"
-                                                {{ old('role', $user->role->value) == $role->value ? 'selected' : '' }}>
+                                                {{ ($user && old('role', $user?->role?->value) == $role->value ? 'selected' : '') }}>
                                                 {{ ucwords(str_replace('_', ' ', Str::snake($role->name))) }}
                                             </option>
                                         @endforeach
