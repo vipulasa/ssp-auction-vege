@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Enums\Role;
 
 class UserController extends Controller
 {
@@ -46,7 +47,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.user.form', [
+            'user' => $user,
+            'roles' => Role::cases()
+        ]);
     }
 
     /**
@@ -54,7 +58,15 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'role' => 'required'
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('user.index')->with('success', 'User successfully updated!');
     }
 
     /**
@@ -62,6 +74,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'User successfully deleted!');
     }
 }
