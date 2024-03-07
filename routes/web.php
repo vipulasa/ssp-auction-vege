@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,58 @@ use Illuminate\Support\Facades\Route;
  */
 Route::group(['prefix' => 'admin'], function () {
 
+    /**
+     * Authentication routes
+     */
+    Route::group(['prefix' => 'auth'], function () {
+        // User resource route
+        Route::resource('users', BaseController::class);
+
+        // Farmer resource route
+        Route::resource('farmers', BaseController::class);
+
+        // Roles and permissions
+        Route::resource('roles', BaseController::class);
+        Route::resource('permissions', BaseController::class);
+
+        // buyer management
+        Route::resource('buyers', BaseController::class);
+    });
+
+    /**
+     * Auction routes
+     */
+    Route::group(['prefix' => 'auction'], function () {
+        // Bid management
+        Route::resource('bids', BaseController::class);
+
+        // Payment history
+        Route::resource('payments', BaseController::class);
+
+        // Payment gateways
+        Route::resource('payment-gateways', BaseController::class);
+
+        // Orders
+        Route::resource('orders', BaseController::class);
+    });
+
+    /**
+     * Analytic routes
+     */
+    Route::group(['prefix' => 'analytics'], function () {
+       // @todo Add analytic routes
+    });
+
+    // Fertilisers & Pesticides
+    Route::resource('fertilisers-pesticides', BaseController::class);
+
+    // Categories
+    Route::resource('categories', BaseController::class);
+
+    // Support
+    Route::resource('support-requests', BaseController::class);
+
+    // Dashboard
     Route::get('/', function (Request $request) {
         return 'Yo Admin.';
     });
@@ -34,8 +87,6 @@ Route::group(['prefix' => 'vendor'], function () {
         return 'Yo Vendor.';
     });
 });
-
-
 
 
 Route::get('/dev', function (Request $request) {
@@ -77,8 +128,8 @@ Route::middleware([
         \App\Http\Controllers\ProductCategoryController::class
     );
 
-    Route::resource(
-        'user',
-        \App\Http\Controllers\UserController::class
-    );
+//    Route::resource(
+//        'user',
+//        \App\Http\Controllers\UserController::class
+//    );
 });
