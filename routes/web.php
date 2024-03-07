@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin'], function () {
  */
 Route::group(['prefix' => 'vendor'], function () {
 
+    // Dashboard
     Route::get('/', function (Request $request) {
         return 'Yo Vendor.';
     });
