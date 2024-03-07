@@ -14,6 +14,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Administration routes
+ */
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/', function (Request $request) {
+        return 'Yo Admin.';
+    });
+
+});
+
+/**
+ * Vendor routes
+ */
+Route::group(['prefix' => 'vendor'], function () {
+
+    Route::get('/', function (Request $request) {
+        return 'Yo Vendor.';
+    });
+});
+
+
+
+
+Route::get('/dev', function (Request $request) {
+
+    // get all the users from the users table
+    $users = DB::table('users')->get();
+
+});
+
 Route::get('/', function (Request $request) {
     return view('home');
 });
