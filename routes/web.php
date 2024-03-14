@@ -15,6 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::middleware([
+    'role:SuperAdministrator'
+])
+    ->get('dev', function (Request $request) {
+
+    return 'Yo Dev.';
+    dd('Dev.');
+    // get all the users from the users table
+//    $users = DB::table('users')->get();
+
+    return 'Yo Dev.';
+
+});
+
 /**
  * Administration routes
  */
@@ -87,14 +102,6 @@ Route::group(['prefix' => 'vendor'], function () {
     Route::get('/', function (Request $request) {
         return 'Yo Vendor.';
     });
-});
-
-
-Route::get('/dev', function (Request $request) {
-
-    // get all the users from the users table
-    $users = DB::table('users')->get();
-
 });
 
 Route::get('/', function (Request $request) {
