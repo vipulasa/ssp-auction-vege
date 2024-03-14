@@ -21,10 +21,7 @@ Route::middleware([
 ])
     ->get('dev', function (Request $request) {
 
-    return 'Yo Dev.';
-    dd('Dev.');
-    // get all the users from the users table
-//    $users = DB::table('users')->get();
+        dd(\Illuminate\Support\Facades\Gate::allows('SuperAdmin'));
 
     return 'Yo Dev.';
 
