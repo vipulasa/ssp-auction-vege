@@ -30,6 +30,11 @@ return new class extends Migration {
             $table->string('billing_phone');
             $table->string('billing_mobile');
 
+            $table->tinyInteger('payment_status')->default(1);
+
+            $table->tinyInteger('shipping_status')->default(1);
+
+
             $table->tinyInteger('delivery_method');
             $table->tinyInteger('payment_method');
             $table->float('shipping_total');

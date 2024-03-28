@@ -33,6 +33,8 @@ class Order extends Model
         'billing_district',
         'billing_phone',
         'billing_mobile',
+        'payment_status',
+        'shipping_status',
 
         'delivery_method',
         'payment_method',

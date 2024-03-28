@@ -29,5 +29,15 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
+    public function stocks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Stock::class);
+    }
+
+    public function reviews(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
 
 }
