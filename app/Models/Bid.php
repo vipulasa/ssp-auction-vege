@@ -4,19 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Stock extends Model
+class Bid extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
         'user_id',
-        'quantity',
-        'stock_status',
-        'unit_type',
-        'unit_price',
+        'auction_id',
+        'product_id',
+        'bid',
     ];
+
+    protected function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    protected function auction(): BelongsTo
+    {
+        return $this->belongsTo(Auction::class);
+    }
 
     protected function product(): BelongsTo
     {
