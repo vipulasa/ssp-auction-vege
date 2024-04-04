@@ -1,22 +1,27 @@
-<div x-data="{
-    name : @entangle('name').live,
-}">
+<?php
 
-    <div class="flex space-x-5">
-        <button wire:click="decrement">
-            -
-        </button>
+use function Livewire\Volt\{state};
 
-        <h1>{{ $count }}</h1>
+state([
+    'count' => 0,
+    'product' => null,
+]);
 
-        <button wire:click="increment">
-            +
-        </button>
-    </div>
+$increment = function () {
+    $this->count++;
+};
 
-    <input type="text" x-model="name">
+$getRandomProduct = function () {
+    $this->product = (new \App\Models\Product())->inRandomOrder()->first();
+};
 
-    {{ $name }}
+?>
 
+<div class="text-center mt-10 max-w-2xl  mx-auto">
+    <button wire:click="getRandomProduct">Get Random Product</button>
+
+    @if($product)
+        <x-product :product="$product"/>
+    @endif
 
 </div>
