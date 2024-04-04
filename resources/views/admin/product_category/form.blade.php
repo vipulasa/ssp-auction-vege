@@ -1,4 +1,17 @@
 <x-app-layout>
+
+    <div class="my-10 mx-auto max-w-2xl">
+        @livewire('ProductCategoryForm')
+    </div>
+
+
+
+    OLD COMPONENT
+    |<br />
+    |<br />
+    |<br />
+    |<br />
+    \/
     <form action="{{  route('product-category.store') }}" method="post">
         @csrf
 
