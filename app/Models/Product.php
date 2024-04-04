@@ -51,6 +51,13 @@ class Product extends Model implements HasMedia
         $this->addMediaCollection('gallery');
     }
 
+    /**
+     * Register media conversions for a given media.
+     *
+     * @param Media|null $media The media object to register conversions for.
+     * @return void
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('250x250')
@@ -60,8 +67,6 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('500x500')
             ->width(500)
             ->height(500);
-
-
     }
 
 

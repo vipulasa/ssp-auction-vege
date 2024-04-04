@@ -125,9 +125,21 @@ Route::group(['prefix' => 'vendor'], function () {
     });
 });
 
-Route::get('/', function (Request $request) {
-    return view('home');
-});
+
+/**
+ * Product routes
+ */
+Route::get('/product/{slug}', [
+    \App\Http\Controllers\ProductController::class,
+    'show'
+])->name('product.show');
+
+Route::get('/category/{slug}', [
+    \App\Http\Controllers\CategoryController::class,
+    'show'
+])->name('category.show');
+
+Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
 Route::post('/post-test', function (Request $request) {
     dd(request()->get('name'), request()->get('email'));
