@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
     use HasFactory,
-        SoftDeletes;
+        SoftDeletes,
+        InteractsWithMedia;
 
     protected $fillable = [
         'category_id',
@@ -37,6 +41,27 @@ class Product extends Model
     public function reviews(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('featured_image')
+            ->singleFile();
+
+        $this->addMediaCollection('gallery');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('250x250')
+            ->width(250)
+            ->height(250);
+
+        $this->addMediaConversion('500x500')
+            ->width(500)
+            ->height(500);
+
+
     }
 
 
