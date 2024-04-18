@@ -129,7 +129,7 @@ Route::group(['prefix' => 'vendor'], function () {
 /**
  * Product routes
  */
-Route::get('/product/{slug}', [
+Route::get('/product/{product:slug}', [
     \App\Http\Controllers\ProductController::class,
     'show'
 ])->name('product.show');

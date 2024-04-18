@@ -4,8 +4,10 @@
 @if($product)
     <div class="bg-white shadow-lg rounded-lg p-4">
         <div class="mb-4">
-            <img src="{{ $product->getFirstMediaUrl('featured_image') }}" alt="{{ $product->name }}"
-                 class="w-full h-32 object-cover rounded">
+            <a href="{{ route('product.show', $product->slug) }}">
+                <img src="{{ $product->getFirstMediaUrl('featured_image') }}" alt="{{ $product->name }}"
+                     class="w-full h-32 object-cover rounded">
+            </a>
         </div>
         <div class="justify-between items-center">
             <h2 class="text-xl font-semibold text-gray-800">{{ $product->name }}</h2>

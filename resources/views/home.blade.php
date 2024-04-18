@@ -17,7 +17,7 @@
 
     @livewire('counter')
 
-    <div class="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-6 gap-4 mx-10 mt-10">
+    <div class="grid grid-cols-6 md:grid-cols-5 lg:grid-cols-6 gap-4 mx-10 mt-10">
         @foreach($products as $product)
             <x-product :product="$product"/>
         @endforeach
