@@ -21,31 +21,15 @@ Route::middleware([
 ])
     ->get('dev', function (Request $request) {
 
-        // get 1 product
-        $product = \App\Models\Product::first();
-
-        // create a cart
-        $cart = \App\Models\Cart::create([
-            'user_id' => 1,
-            'item_count' => 1,
-            'sub_total' => 0,
-            'total_discount' => 0,
-            'total' => 0,
-            'total_tax' => 0,
-            'is_paid' => false,
+       // create an auction
+        $auction = \App\Models\Auction::create([
+            'name' => 'Auction X',
+            'description' => 'lorem ipsum',
+            'start_date' => now(),
+            'end_date' => now()->addDays(7),
+            'status' => 1
         ]);
 
-        // add product to cart
-        $cart->products()->attach($product, [
-            'quantity' => 1,
-            'tax' => 0,
-            'discount' => 0,
-            'price' => $product->price,
-        ]);
-
-        dd($product, $cart);
-
-//        dd(\Illuminate\Support\Facades\Gate::allows('SuperAdmin'));
 
     return 'Yo Dev.';
 

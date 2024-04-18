@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -33,12 +34,12 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(ProductCategory::class);
     }
 
-    public function stocks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function stocks(): HasMany
     {
         return $this->hasMany(Stock::class);
     }
 
-    public function reviews(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);
     }
@@ -49,6 +50,14 @@ class Product extends Model implements HasMedia
             ->singleFile();
 
         $this->addMediaCollection('gallery');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bids(): HasMany
+    {
+        return $this->hasMany(Bid::class);
     }
 
     /**
