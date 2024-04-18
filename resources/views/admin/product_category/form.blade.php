@@ -7,10 +7,10 @@
 
 
     OLD COMPONENT
-    |<br />
-    |<br />
-    |<br />
-    |<br />
+    |
+    |
+    |
+    |
     \/
     <form action="{{  route('product-category.store') }}" method="post">
         @csrf

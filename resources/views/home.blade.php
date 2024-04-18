@@ -5,11 +5,21 @@
         </h2>
     </x-slot>
 
+    <div x-data="{
+        show : true
+    }">
+        <template x-if="show">
+            <h1 id="ela">
+                Hello
+            </h1>
+        </template>
+    </div>
+
     @livewire('counter')
 
     <div class="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-6 gap-4 mx-10 mt-10">
         @foreach($products as $product)
-            <x-product :product="$product" />
+            <x-product :product="$product"/>
         @endforeach
     </div>
 
