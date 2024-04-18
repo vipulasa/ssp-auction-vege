@@ -5,7 +5,8 @@ use function Livewire\Volt\{state, mount};
 state([
     'product' => null,
     'bid' => null,
-    'message' => null
+    'message' => null,
+    'min_bid' => null
 ]);
 
 mount(function () {
@@ -16,11 +17,24 @@ mount(function () {
         session()
             ->put('url.intended', route('product.show', $this->product->slug));
     }
+
+    // check if the product has any bids
+    if ($this->product->bids->count()) {
+
+        // get the minimum bid
+        $this->min_bid = $this->product->bids->max('bid') + 50;
+
+    } else {
+
+        // set the minimum bid to the product price
+        $this->min_bid = $this->product->price;
+
+    }
 });
 
 $placeBid = function () {
     $this->validate([
-        'bid' => 'required|numeric|'
+        'bid' => 'required|numeric|min:'. $this->min_bid
     ]);
 
     $this->product->bids()->create([
@@ -31,6 +45,20 @@ $placeBid = function () {
 
     $this->message = 'Bid placed successfully';
 
+    $this->bid = null;
+
+    // check if the product has any bids
+    if ($this->product->bids->count()) {
+
+        // get the minimum bid
+        $this->min_bid = $this->product->bids->max('bid') + 50;
+
+    } else {
+
+        // set the minimum bid to the product price
+        $this->min_bid = $this->product->price;
+
+    }
 
 };
 
@@ -46,7 +74,7 @@ $placeBid = function () {
             <input type="text" placeholder="LKR" wire:model="bid" />
             @error('bid') <span class="text-red-500">{{ $message }}</span> @enderror
             <div>
-                <div class="text-sm mt-4 mb-4">Minimum Bid: </div>
+                <div class="text-sm mt-4 mb-4">Minimum Bid: {{ $min_bid }}</div>
                 <button class="bg-blue-500 text-white p-2">Place Bid</button>
             </div>
         </form>
@@ -69,7 +97,7 @@ $placeBid = function () {
             </tr>
         </thead>
         <tbody>
-            @foreach($product->bids as $bid)
+            @foreach($product->bids()->orderBy('bid', 'DESC')->get() as $bid)
                 <tr>
                     <td>{{ $bid->user->name }}</td>
                     <td>{{ $bid->bid }}</td>
