@@ -34,7 +34,7 @@ mount(function () {
 
 $placeBid = function () {
     $this->validate([
-        'bid' => 'required|numeric|min:'. $this->min_bid
+        'bid' => 'required|numeric|min:' . $this->min_bid
     ]);
 
     $this->product->bids()->create([
@@ -71,7 +71,7 @@ $placeBid = function () {
                 <div class="bg-green-500 text-white p-4 mb-3">{{ $message }}</div>
             @endif
             <h3>Place Bid</h3>
-            <input type="text" placeholder="LKR" wire:model="bid" />
+            <input type="text" placeholder="LKR" wire:model="bid"/>
             @error('bid') <span class="text-red-500">{{ $message }}</span> @enderror
             <div>
                 <div class="text-sm mt-4 mb-4">Minimum Bid: {{ $min_bid }}</div>
@@ -90,20 +90,20 @@ $placeBid = function () {
 
     <table class="mt-8">
         <thead>
-            <tr>
-                <th>Bidder</th>
-                <th>Bid</th>
-                <th>Date</th>
-            </tr>
+        <tr>
+            <th>Bidder</th>
+            <th>Bid</th>
+            <th>Date</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach($product->bids()->orderBy('bid', 'DESC')->get() as $bid)
-                <tr>
-                    <td>{{ $bid->user->name }}</td>
-                    <td>{{ $bid->bid }}</td>
-                    <td>{{ $bid->created_at->diffForHumans() }}</td>
-                </tr>
-            @endforeach
+        @foreach($product->bids()->orderBy('bid', 'DESC')->get() as $bid)
+            <tr>
+                <td>{{ $bid->user->name }}</td>
+                <td>{{ $bid->bid }}</td>
+                <td>{{ $bid->created_at->diffForHumans() }}</td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </div>

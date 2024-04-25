@@ -33,11 +33,11 @@
                         </div>
 
                         <div class="mt-5">
-
-                            @livewire('ProductBid', ['product' => $product])
+                            @livewire('ProductAddToCart', ['product' => $product])
+                            <div class="mt-5 border-t-4 pt-5">
+                                @livewire('ProductBid', ['product' => $product])
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

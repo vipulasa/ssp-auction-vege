@@ -74,4 +74,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Review::class);
     }
+
+    public function carts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

@@ -94,6 +94,8 @@
                     </div>
                 @endif
 
+                @livewire("CartStatus")
+
                 @auth
                     <!-- Settings Dropdown -->
                     <div class="ms-3 relative">
