@@ -8,14 +8,15 @@ state([
 ]);
 
 mount(function () {
+    if (auth()->user()) {
+        $cart = auth()
+            ->user()
+            ->carts()
+            ->where('is_paid', false)
+            ->first();
 
-    $cart = auth()
-        ->user()
-        ->carts()
-        ->where('is_paid', false)
-        ->first();
-
-    $this->cart = $cart;
+        $this->cart = $cart;
+    }
 
 });
 
@@ -35,15 +36,17 @@ $removeProduct = function ($productId) {
 };
 
 on(['cartRefresh' => function () {
-    $cart = auth()
-        ->user()
-        ->carts()
-        ->where('is_paid', false)
-        ->first();
+    if (auth()->user()) {
+        $cart = auth()
+            ->user()
+            ->carts()
+            ->where('is_paid', false)
+            ->first();
 
-    $this->cart = $cart;
+        $this->cart = $cart;
 
-    $this->showCart = true;
+        $this->showCart = true;
+    }
 }]);
 ?>
 
@@ -64,29 +67,33 @@ on(['cartRefresh' => function () {
                 <h3 class="text-lg font-medium text-gray-900">Cart</h3>
                 <div class="mt-4">
                     <div class="items center space-y-6">
-                        @foreach($cart->products as $product)
-                            <div class="flex items center">
-                                <img src="{{ $product->getFirstMediaUrl('featured_image') }}"
-                                     class="w-10 h-10 object-cover rounded">
-                                <div class="ml-4">
-                                    <h4 class="text-sm font-medium text-gray-900">{{ $product->name }}</h4>
-                                    <p class="mt-1 text-sm text-gray-500">{{ $product->pivot->quantity }} x
-                                        LKR {{ number_format($product->price, 2) }}
-                                    </p>
+                        @if($cart)
+                            @foreach($cart->products as $product)
+                                <div class="flex items center">
+                                    <img src="{{ $product->getFirstMediaUrl('featured_image') }}"
+                                         class="w-10 h-10 object-cover rounded">
+                                    <div class="ml-4">
+                                        <h4 class="text-sm font-medium text-gray-900">{{ $product->name }}</h4>
+                                        <p class="mt-1 text-sm text-gray-500">{{ $product->pivot->quantity }} x
+                                            LKR {{ number_format($product->price, 2) }}
+                                        </p>
+                                    </div>
+                                    <button wire:click="removeProduct({{ $product->id }})"
+                                            class="ml-auto text-gray-500 hover:text-gray-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </button>
                                 </div>
-                                <button wire:click="removeProduct({{ $product->id }})"
-                                        class="ml-auto text-gray-500 hover:text-gray-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        @endforeach
-                        <p class="mt-1 text-sm text-gray-500">
-                            LKR {{ number_format($cart->total, 2) }}
-                        </p>
+                            @endforeach
+                                <p class="mt-1 text-sm text-gray-500">
+                                    LKR {{ number_format($cart->total, 2) }}
+                                </p>
+                        @else
+                            <p class="text-sm text-gray-500">No items in the cart</p>
+                        @endif
                     </div>
                 </div>
             </div>
