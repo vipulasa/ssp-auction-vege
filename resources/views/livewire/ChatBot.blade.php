@@ -5,7 +5,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Product;
 
 state([
-    'toggleChat' => true,
+    'toggleChat' => false,
     'messages' => [],
     'chat' => [],
     'query' => null,

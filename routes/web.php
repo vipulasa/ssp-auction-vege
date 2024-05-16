@@ -15,22 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+app('AuctionVege')->setMessage('Hello World');
+
 
 Route::middleware([
 //    'role:SuperAdministrator'
 ])
     ->get('dev', function (Request $request) {
 
-       // create an auction
-        $auction = \App\Models\Auction::create([
-            'name' => 'Auction X',
-            'description' => 'lorem ipsum',
-            'start_date' => now(),
-            'end_date' => now()->addDays(7),
-            'status' => 1
-        ]);
-
-
+//       // create an auction
+//        $auction = \App\Models\Auction::create([
+//            'name' => 'Auction X',
+//            'description' => 'lorem ipsum',
+//            'start_date' => now(),
+//            'end_date' => now()->addDays(7),
+//            'status' => 1
+//        ]);
     return 'Yo Dev.';
 
 });

@@ -79,4 +79,31 @@ class Product extends Model implements HasMedia
     }
 
 
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'category_id' => $this->category_id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'meta_title' => $this->meta_title,
+            'meta_description' => $this->meta_description,
+            'meta_keywords' => $this->meta_keywords,
+            'price' => $this->price,
+            'order_by' => $this->order_by,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+            'category' => $this->category,
+            'stocks' => $this->stocks,
+            'reviews' => $this->reviews,
+            'bids' => $this->bids,
+            'featured_image' => $this->getFirstMediaUrl('featured_image'),
+            'gallery' => $this->getMedia('gallery'),
+        ];
+    }
+
+
 }

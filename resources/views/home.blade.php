@@ -15,6 +15,8 @@
         </template>
     </div>
 
+    {{ $app_name }}
+
     @livewire('counter')
 
     <div class="grid grid-cols-6 md:grid-cols-5 lg:grid-cols-6 gap-4 mx-10 mt-10">
