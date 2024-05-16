@@ -23,6 +23,14 @@ Route::middleware([
 ])
     ->get('dev', function (Request $request) {
 
+        (new \App\Models\User())
+            ->find(11)
+            ->notify(new \App\Notifications\SystemMessageNotification(
+                'Hello World',
+                'system_message',
+                'http://localhost:8000'
+            ));
+
 //       // create an auction
 //        $auction = \App\Models\Auction::create([
 //            'name' => 'Auction X',

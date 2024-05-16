@@ -64,9 +64,10 @@
                                         <td
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                             {{ $product_category->id }}</td>
-                                        <td
+                                        <td x-data x-uppercase:expression="value"
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                                            {{ $product_category->name }}</td>
+                                            {{ $product_category->name }}
+                                        </td>
                                         <td
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                             {{ $product_category->slug }}</td>
