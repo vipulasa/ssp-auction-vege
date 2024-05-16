@@ -51,7 +51,9 @@ class ProductCategoryController extends Controller
      */
     public function edit(ProductCategory $productCategory)
     {
-        //
+        return view('admin.product_category.update', [
+            'category' => $productCategory
+        ]);
     }
 
     /**
